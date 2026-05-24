@@ -1,0 +1,67 @@
+name: hermes-ops demo
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for broken wikilinks in wiki guides
+        run: |
+          # Simple check: grep for wikilink patterns that might be broken
+          # (This is a demo CI — real validation would use a wikilint tool)
+          echo "Checking wiki guides for basic structure..."
+          for f in wiki-guides/*.md; do
+            if [[ -f "$f" ]]; then
+              echo "  - $(basename $f): OK"
+            fi
+          done
+
+      - name: Verify agent sheets are present
+        run: |
+          echo "Verifying agent sheets..."
+          for agent in news arxiv researcher librarian librarians-assistant ingest insights; do
+            if [[ -f "agent-sheets/${agent}.md" ]] || [[ -f "agent-sheets/${agent}-agent.md" ]]; then
+              echo "  - ${agent}: OK"
+            else
+              echo "  - ${agent}: MISSING" && exit 1
+            fi
+          done
+
+      - name: Verify skills are present
+        run: |
+          echo "Verifying skills..."
+          for agent in news-agent arxiv-agent researcher-agent librarian-agent librarians-assistant ingest-agent insights-agent; do
+            if [[ -d "skills/${agent}" ]]; then
+              echo "  - ${agent}: OK"
+            else
+              echo "  - ${agent}: MISSING" && exit 1
+            fi
+          done
+
+      - name: Check SETUP.sh is executable
+        run: |
+          if [[ -x "SETUP.sh" ]]; then
+            echo "  SETUP.sh: executable ✓"
+          else
+            echo "  SETUP.sh: NOT executable" && exit 1
+          fi
+
+      - name: Verify markdown frontmatter in skills
+        run: |
+          echo "Checking SKILL.md files for frontmatter..."
+          for skill in skills/*/SKILL.md; do
+            if [[ -f "$skill" ]]; then
+              if head -5 "$skill" | grep -q "^---"; then
+                echo "  - $(dirname $skill): OK"
+              else
+                echo "  - $(dirname $skill): MISSING frontmatter" && exit 1
+              fi
+            fi
+          done

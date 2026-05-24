@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Hermes
+.sessions/
+cron/output/
+
+# Neo4j
+*.neo4j
+
+# Wiki (large, external)
+LLM-WIKI/
+
+# Paper research (large PDFs)
+paper-research/
+
+# Credentials / keys
+*.pem
+*.key
+.env
+secrets/
+credentials/
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Build
+build/
+dist/
+*.egg-info/
