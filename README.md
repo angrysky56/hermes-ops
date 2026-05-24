@@ -264,7 +264,7 @@ These are SEPARATE projects with their own install instructions. hermes-ops does
 | ------------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------- |
 | hermes-agent        | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)                       | Agent runtime, cron scheduler, delegation    |
 | project-synapse-mcp | [angrysky56/project-synapse-mcp](https://github.com/angrysky56/project-synapse-mcp)             | MCP server — semantic pipeline, Neo4j bridge |
-| Neo4j + APOC        | [neo4j.com](https://neo4j.com/) + [apoc](https://github.com/neo4j-contrib/apoc)                 | Knowledge graph + vector storage             |
+| Neo4j               | [neo4j.com](https://neo4j.com/)                                                                 | Knowledge graph + vector storage             |
 | Obsidian + git      | [obsidian.md](https://obsidian.md/) + [obsidian-git](https://github.com/vinzent03/obsidian-git) | Wiki vault + version control                 |
 | Obsidian clipper    | [clipper](https://obsidian.md/clipper)                                                          | Web clipping ingestion                       |
 
