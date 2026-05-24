@@ -64,9 +64,9 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 | Dependency              | Install                                                                              | Purpose                                                          |
 | ----------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
 | **hermes-agent**        | `pip install hermes-agent` or [source](https://github.com/NousResearch/hermes-agent) | CLI, cron scheduler, agent runtime                               |
-| **project-synapse-mcp** | [project-synapse-mcp](https://github.com/your-org/project-synapse-mcp)               | MCP server — Synapse semantic pipeline, wiki tools, Neo4j bridge |
-| **Neo4j**               | [neo4j.com](https://neo4j.com/)                                                      | Graph + vector storage                                           |
-| **Obsidian**            | [obsidian.md](https://obsidian.md/)                                                  | Human-readable wiki vault layer                                  |
+| **project-synapse-mcp** | [angrysky56/project-synapse-mcp](https://github.com/angrysky56/project-synapse-mcp) | MCP server — Synapse semantic pipeline, wiki tools, Neo4j bridge |
+| **Neo4j**               | [neo4j.com](https://neo4j.com/) + [APOC plugin](https://github.com/neo4j-contrib/apoc)              | Graph + vector storage                                           |
+| **Obsidian**            | [obsidian.md](https://obsidian.md/) + [obsidian-git](https://github.com/vinzent03/obsidian-git) + [clipping plugin](https://github.com/D你这么可爱/obsidian-clipper) | Human-readable wiki vault + version control + web clipping |
 | **Python 3.10+**        | —                                                                                    | Runtime for Synapse MCP                                          |
 
 ### Environment Variables
@@ -263,9 +263,10 @@ These are SEPARATE projects with their own install instructions. hermes-ops does
 | Project             | Repo                                                                            | Purpose                                      |
 | ------------------- | ------------------------------------------------------------------------------- | -------------------------------------------- |
 | hermes-agent        | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)       | Agent runtime, cron scheduler, delegation    |
-| project-synapse-mcp | [your-org/project-synapse-mcp](https://github.com/your-org/project-synapse-mcp) | MCP server — semantic pipeline, Neo4j bridge |
-| Neo4j               | [neo4j.com](https://neo4j.com/)                                                 | Knowledge graph + vector storage             |
-| Obsidian            | [obsidian.md](https://obsidian.md/)                                             | Human-readable wiki vault                    |
+| project-synapse-mcp | [angrysky56/project-synapse-mcp](https://github.com/angrysky56/project-synapse-mcp) | MCP server — semantic pipeline, Neo4j bridge |
+| Neo4j + APOC        | [neo4j.com](https://neo4j.com/) + [apoc](https://github.com/neo4j-contrib/apoc)     | Knowledge graph + vector storage             |
+| Obsidian + git      | [obsidian.md](https://obsidian.md/) + [obsidian-git](https://github.com/vinzent03/obsidian-git) | Wiki vault + version control    |
+| Obsidian clipper    | [clipper](https://github.com/D你这么可爱/obsidian-clipper)                         | Web clipping ingestion                      |
 
 ---
 
