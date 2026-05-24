@@ -81,10 +81,10 @@ NEO4J_PASSWORD=<your-password>
 HERMES_CONFIG_PATH=~/.hermes/config.yaml
 
 # Wiki root (used by all agents)
-WIKI_PATH=/home/ty/Documents/LLM-WIKI
+WIKI_PATH=/your-path-to/LLM-WIKI
 
 # ArXiv paper storage
-PAPER_RESEARCH_PATH=/home/ty/Documents/paper-research
+PAPER_RESEARCH_PATH=/your-path-to/paper-research
 
 # Discord (for delivery)
 DISCORD_BOT_TOKEN=<your-token>
@@ -94,6 +94,8 @@ DISCORD_HOME_CHANNEL_ID=<your-channel-id>
 ---
 
 ## Quick Start
+
+Fork and clone this repo.
 
 ```bash
 # 1. Clone this repo
@@ -235,7 +237,7 @@ LLM-WIKI/
 All wiki agents should **verify MCP availability before use**:
 
 ```bash
-/home/ty/Repositories/ai_workspace/project-synapse-mcp/.venv/bin/python3 \
+/your/path/to/project-synapse-mcp/.venv/bin/python3 \
   -c "from synapse_mcp.zettelkasten.insight_engine import InsightEngine; print('OK')" \
   2>/dev/null && echo "MCP OK" || echo "MCP UNAVAILABLE"
 ```
