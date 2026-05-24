@@ -150,7 +150,10 @@ hermes-ops/
 │   └── insights.md
 │
 ├── wiki-guides/               # Operating guides for the wiki layer
-│   └── synapse-llm-wiki-operating-guide.md
+│   ├── synapse-llm-wiki-operating-guide.md  # Schema conventions, workflows, agent architecture
+│   ├── wiki-indexing-theory.md              # IR theory: TOC vs index, controlled vocabulary, HITS, clustering
+│   ├── AGENTS.md                            # Full vault structure, carryover protocol, agent delegation patterns
+│   └── (jobs/index.md, jobs/sheet.md)       # Job registry and status tracking
 │
 ├── templates/
 │   ├── carryover-template.md  # Markovian forward-state template
