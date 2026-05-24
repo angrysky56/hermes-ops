@@ -13,6 +13,8 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 
 ## What This Stack Does
 
+[Example of the WIKI it builds (my wiki)](https://github.com/angrysky56/LLM-WIKI)
+
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                    HERMES CRON SCHEDULER                             │
