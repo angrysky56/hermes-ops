@@ -26,7 +26,7 @@ Read `wiki/scratchpad/jobs/sheet.md` to check if Ty has flagged any specific reg
 
 ### STEP 2 — Discover news via RSS (NOT wiki search)
 
-**Use RSS as primary discovery.** Do NOT use web search to search the wiki or re-read existing wiki content as a news discovery mechanism.
+Use RSS as primary discovery. Do NOT use web search to search the wiki or re-read existing wiki content as a news discovery mechanism.
 
 ```bash
 curl -s "https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US%3Aen"
