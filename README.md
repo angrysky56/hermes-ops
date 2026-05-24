@@ -5,8 +5,9 @@
 hermes-ops is the operational layer for a self-sustaining knowledge graph. It runs a suite of specialized agents that monitor global news, curate academic papers, audit wiki integrity, and surface insights — all coordinated through Hermes Agent cron jobs and the Synapse MCP server.
 
 This repo contains **only the operational layer**: agent skills, agent sheets, wiki operating guides, and setup scripts. It does NOT include:
+
 - `hermes-agent` itself → [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
-- `project-synapse-mcp` → [project-synapse-mcp](https://github.com/your-org/project-synapse-mcp) (separate install)
+- `project-synapse-mcp` → [angrysky56/project-synapse-mcp](https://github.com/angrysky56/project-synapse-mcp) (separate install)
 
 ---
 
@@ -44,27 +45,27 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 
 ### Agent Roles
 
-| Agent | Trigger | Schedule | What it does |
-|-------|---------|----------|--------------|
-| **news-agent** | `/news-agent` | Daily 08:00 AM | Scans global news via Google RSS, ingests 3–5 significant stories to `wiki/sources/articles/`, writes `headlines-YYYY-MM-DD.md` reports |
-| **arxiv-agent** | `/arxiv-agent` | Daily 08:20 AM | Discovers top ML/AI papers on arXiv, downloads PDFs, writes source summaries to `wiki/sources/papers/` |
-| **researcher-agent** | `/researcher-agent` | On-demand | Identifies knowledge gaps in the wiki using graph queries, fills stubs, creates concept pages |
-| **librarian-agent** | `/librarian-agent` | Daily 08:50 AM | Runs full vault audit (orphans, broken links, frontmatter debt, HITS scoring), delegates fixes to librarians-assistant |
-| **librarians-assistant** | `/librarians-assistant` | After librarian | Iterative remediation: fixes broken wikilinks, resolves orphans, normalizes frontmatter and tags |
-| **ingest-agent** | `/ingest-agent` | On-demand | Processes raw inbox files through the Synapse pipeline into structured wiki knowledge |
-| **insights-agent** | `/insights-agent` | Daily 06:00 AM | Runs the Zettelkasten engine, materializes high-confidence insights (≥0.7) as synthesis pages |
+| Agent                    | Trigger                 | Schedule        | What it does                                                                                                                            |
+| ------------------------ | ----------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **news-agent**           | `/news-agent`           | Daily 08:00 AM  | Scans global news via Google RSS, ingests 3–5 significant stories to `wiki/sources/articles/`, writes `headlines-YYYY-MM-DD.md` reports |
+| **arxiv-agent**          | `/arxiv-agent`          | Daily 08:20 AM  | Discovers top ML/AI papers on arXiv, downloads PDFs, writes source summaries to `wiki/sources/papers/`                                  |
+| **researcher-agent**     | `/researcher-agent`     | On-demand       | Identifies knowledge gaps in the wiki using graph queries, fills stubs, creates concept pages                                           |
+| **librarian-agent**      | `/librarian-agent`      | Daily 08:50 AM  | Runs full vault audit (orphans, broken links, frontmatter debt, HITS scoring), delegates fixes to librarians-assistant                  |
+| **librarians-assistant** | `/librarians-assistant` | After librarian | Iterative remediation: fixes broken wikilinks, resolves orphans, normalizes frontmatter and tags                                        |
+| **ingest-agent**         | `/ingest-agent`         | On-demand       | Processes raw inbox files through the Synapse pipeline into structured wiki knowledge                                                   |
+| **insights-agent**       | `/insights-agent`       | Daily 06:00 AM  | Runs the Zettelkasten engine, materializes high-confidence insights (≥0.7) as synthesis pages                                           |
 
 ---
 
 ## Prerequisites
 
-| Dependency | Install | Purpose |
-|------------|---------|---------|
-| **hermes-agent** | `pip install hermes-agent` or [source](https://github.com/NousResearch/hermes-agent) | CLI, cron scheduler, agent runtime |
-| **project-synapse-mcp** | [project-synapse-mcp](https://github.com/your-org/project-synapse-mcp) | MCP server — Synapse semantic pipeline, wiki tools, Neo4j bridge |
-| **Neo4j** | [neo4j.com](https://neo4j.com/) | Graph + vector storage |
-| **Obsidian** | [obsidian.md](https://obsidian.md/) | Human-readable wiki vault layer |
-| **Python 3.10+** | — | Runtime for Synapse MCP |
+| Dependency              | Install                                                                              | Purpose                                                          |
+| ----------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| **hermes-agent**        | `pip install hermes-agent` or [source](https://github.com/NousResearch/hermes-agent) | CLI, cron scheduler, agent runtime                               |
+| **project-synapse-mcp** | [project-synapse-mcp](https://github.com/your-org/project-synapse-mcp)               | MCP server — Synapse semantic pipeline, wiki tools, Neo4j bridge |
+| **Neo4j**               | [neo4j.com](https://neo4j.com/)                                                      | Graph + vector storage                                           |
+| **Obsidian**            | [obsidian.md](https://obsidian.md/)                                                  | Human-readable wiki vault layer                                  |
+| **Python 3.10+**        | —                                                                                    | Runtime for Synapse MCP                                          |
 
 ### Environment Variables
 
@@ -161,6 +162,7 @@ hermes-ops/
 ## How to Add a New Agent
 
 1. **Create the skill** at `skills/your-agent/SKILL.md`:
+
    ```markdown
    ---
    name: your-agent
@@ -174,6 +176,7 @@ hermes-ops/
    **Wiki root:** `/home/ty/Documents/LLM-WIKI`
 
    ## Bootstrap
+
    1. Read your agent sheet
    2. Read the jobs sheet: `wiki/scratchpad/jobs/sheet.md`
    3. Execute your task
@@ -183,6 +186,7 @@ hermes-ops/
 2. **Create the agent sheet** at `agent-sheets/your-agent.md` — detailed runtime instructions following the same pattern as existing sheets.
 
 3. **Register the cron job:**
+
    ```bash
    hermes cron create \
      --name "your-job-name" \
@@ -216,13 +220,13 @@ LLM-WIKI/
 
 ### Agent → Wiki Path Convention
 
-| Path | Value |
-|------|-------|
-| Wiki root | `/home/ty/Documents/LLM-WIKI/` |
-| Agent sheet | `wiki/scratchpad/agent-sheets/{agent}.md` |
-| Jobs sheet | `wiki/scratchpad/jobs/sheet.md` |
-| Reports | `wiki/scratchpad/jobs/reports/{agent}/` |
-| Carryover | `wiki/scratchpad/jobs/reports/{agent}/carryover.md` |
+| Path        | Value                                               |
+| ----------- | --------------------------------------------------- |
+| Wiki root   | `/home/ty/Documents/LLM-WIKI/`                      |
+| Agent sheet | `wiki/scratchpad/agent-sheets/{agent}.md`           |
+| Jobs sheet  | `wiki/scratchpad/jobs/sheet.md`                     |
+| Reports     | `wiki/scratchpad/jobs/reports/{agent}/`             |
+| Carryover   | `wiki/scratchpad/jobs/reports/{agent}/carryover.md` |
 
 ### MCP Tools vs. Filesystem Fallback
 
@@ -239,6 +243,7 @@ If MCP is unavailable: fall back to direct filesystem operations via `terminal()
 ### Cron Job Model + Toolset Requirements
 
 Every wiki agent cron job **must** specify:
+
 - `model: "minimax/MiniMax-M2.7"` (without this, the scheduler throws `RuntimeError: Unknown provider 'null'`)
 - `enabled_toolsets: ["terminal", "file", "web", "skills", "search", "patch"]` — `patch` is critical for updating carryover/frontmatter
 
@@ -248,12 +253,12 @@ Every wiki agent cron job **must** specify:
 
 These are SEPARATE projects with their own install instructions. hermes-ops does NOT include them:
 
-| Project | Repo | Purpose |
-|---------|------|---------|
-| hermes-agent | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | Agent runtime, cron scheduler, delegation |
+| Project             | Repo                                                                            | Purpose                                      |
+| ------------------- | ------------------------------------------------------------------------------- | -------------------------------------------- |
+| hermes-agent        | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)       | Agent runtime, cron scheduler, delegation    |
 | project-synapse-mcp | [your-org/project-synapse-mcp](https://github.com/your-org/project-synapse-mcp) | MCP server — semantic pipeline, Neo4j bridge |
-| Neo4j | [neo4j.com](https://neo4j.com/) | Knowledge graph + vector storage |
-| Obsidian | [obsidian.md](https://obsidian.md/) | Human-readable wiki vault |
+| Neo4j               | [neo4j.com](https://neo4j.com/)                                                 | Knowledge graph + vector storage             |
+| Obsidian            | [obsidian.md](https://obsidian.md/)                                             | Human-readable wiki vault                    |
 
 ---
 
