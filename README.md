@@ -47,25 +47,25 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 
 ### Agent Roles
 
-| Agent                    | Trigger                   | Schedule        | What it does                                                                                                                            |
-| ------------------------ | ------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| **news-agent**           | `/news-agent`             | Daily 08:00 AM  | Scans global news via Google RSS, ingests 3–5 significant stories to `wiki/sources/articles/`, writes `headlines-YYYY-MM-DD.md` reports |
-| **arxiv-agent**          | `/arxiv-agent`            | Daily 08:20 AM  | Discovers top ML/AI papers on arXiv, downloads PDFs, writes source summaries to `wiki/sources/papers/`                                  |
-| **researcher-agent**     | `/researcher-agent`       | Daily 08:10 AM  | Identifies knowledge gaps in the wiki using graph queries, fills stubs, creates concept pages                                           |
-| **ingest-agent**         | `/ingest-agent`           | Daily 08:30 AM  | Processes raw inbox files through the Synapse pipeline into structured wiki knowledge                                                   |
-| **librarian-agent**      | `/librarian-agent`        | Daily 08:50 AM  | Runs full vault audit (orphans, broken links, frontmatter debt, HITS scoring), delegates fixes to librarians-assistant                  |
-| **librarians-assistant** | `/librarians-assistant`   | After librarian | Iterative remediation: fixes broken wikilinks, resolves orphans, normalizes frontmatter and tags                                        |
-| **insights-agent**       | `/insights-agent`         | Daily 06:00 AM  | Runs the Zettelkasten engine, materializes high-confidence insights (≥0.7) as synthesis pages                                           |
-| **kanban-morning-review** | (after each agent)     | Post-run        | Self-answer open carryover items via wiki/synapse; surface only genuinely unanswerable items to Hermes kanban                          |
+| Agent                     | Trigger                 | Schedule        | What it does                                                                                                                            |
+| ------------------------- | ----------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **news-agent**            | `/news-agent`           | Daily 08:00 AM  | Scans global news via Google RSS, ingests 3–5 significant stories to `wiki/sources/articles/`, writes `headlines-YYYY-MM-DD.md` reports |
+| **arxiv-agent**           | `/arxiv-agent`          | Daily 08:20 AM  | Discovers top ML/AI papers on arXiv, downloads PDFs, writes source summaries to `wiki/sources/papers/`                                  |
+| **researcher-agent**      | `/researcher-agent`     | Daily 08:10 AM  | Identifies knowledge gaps in the wiki using graph queries, fills stubs, creates concept pages                                           |
+| **ingest-agent**          | `/ingest-agent`         | Daily 08:30 AM  | Processes raw inbox files through the Synapse pipeline into structured wiki knowledge                                                   |
+| **librarian-agent**       | `/librarian-agent`      | Daily 08:50 AM  | Runs full vault audit (orphans, broken links, frontmatter debt, HITS scoring), delegates fixes to librarians-assistant                  |
+| **librarians-assistant**  | `/librarians-assistant` | After librarian | Iterative remediation: fixes broken wikilinks, resolves orphans, normalizes frontmatter and tags                                        |
+| **insights-agent**        | `/insights-agent`       | Daily 06:00 AM  | Runs the Zettelkasten engine, materializes high-confidence insights (≥0.7) as synthesis pages                                           |
+| **kanban-morning-review** | (after each agent)      | Post-run        | Self-answer open carryover items via wiki/synapse; surface only genuinely unanswerable items to Hermes kanban                           |
 
 > **After every cron completes its main task**, each agent runs the **kanban-morning-review** step: reads its carryover's Open items, attempts to self-answer from wiki/synapse context, and only surfaces genuinely unanswerable items to kanban. This keeps Ty from being spammed with questions the system can already resolve.
 
-| **coder**                | `/coder`                  | On-demand       | Surgical code execution — targeted changes, minimal disruption, goal-driven verification                                                |
-| **principal-researcher** | `/principal-researcher`   | On-demand       | Rigorous scientific evaluation — formal epistemology, complexity profiling, mathematical optimization, falsification protocols        |
-| **pathfinder**           | `/pathfinder`             | On-demand       | Exploratory problem-solving — SOAR cognitive cycle, non-obvious connections, structured exploration toward novel solutions              |
-| **philosophic-investigator** | `/philosophic-investigator` | On-demand    | Philosophical analysis — conceptual framework deconstruction, logical rigor, methodological critique                                    |
-| **peer-reviewer**        | `/peer-reviewer`          | On-demand       | Careful manuscript evaluation — claim assessment, methodological rigor, actionable recommendations                                       |
-| **domain-build**         | `/domain-build`           | On-demand       | Chains Paper2Code-Enhanced → OrCAID commit0 → meta-harness into closed-loop domain building pipeline                                 |
+| **coder** | `/coder` | On-demand | Surgical code execution — targeted changes, minimal disruption, goal-driven verification |
+| **principal-researcher** | `/principal-researcher` | On-demand | Rigorous scientific evaluation — formal epistemology, complexity profiling, mathematical optimization, falsification protocols |
+| **pathfinder** | `/pathfinder` | On-demand | Exploratory problem-solving — SOAR cognitive cycle, non-obvious connections, structured exploration toward novel solutions |
+| **philosophic-investigator** | `/philosophic-investigator` | On-demand | Philosophical analysis — conceptual framework deconstruction, logical rigor, methodological critique |
+| **peer-reviewer** | `/peer-reviewer` | On-demand | Careful manuscript evaluation — claim assessment, methodological rigor, actionable recommendations |
+| **domain-build** | `/domain-build` | On-demand | Chains Paper2Code-Enhanced → OrCAID commit0 → meta-harness into closed-loop domain building pipeline |
 
 > The domain-build persona chains all three tools above into a single pipeline. See the Prerequisites table for repo links.
 
@@ -81,7 +81,7 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 | **Obsidian**            | [obsidian.md](https://obsidian.md/) + [obsidian-git](https://github.com/vinzent03/obsidian-git) + [clipping plugin](https://github.com/D你这么可爱/obsidian-clipper) | Human-readable wiki vault + version control + web clipping       |
 | **Python 3.10+**        | —                                                                                                                                                                    | Runtime for Synapse MCP                                          |
 | **OrCAID**              | [angrysky56/OrCAID](https://github.com/angrysky56/OrCAID)                                                                                                            | Multi-agent execution engine with self-healing delegation loop   |
-| **Paper2Code-Enhanced** | [wentingzhao/Paper2Code-Enhanced](https://github.com/wentingzhao/Paper2Code-Enhanced)                                                                               | Multi-agent paper-to-code pipeline (Tree of Thoughts, etc.)       |
+| **Paper2Code-Enhanced** | [angrysky56/Paper2Code-Enhanced](https://github.com/angrysky56/Paper2Code-Enhanced)                                                                                  | Multi-agent paper-to-code pipeline (Tree of Thoughts, etc.)      |
 | **meta-harness**        | [angrysky56/meta-harness](https://github.com/angrysky56/meta-harness)                                                                                                | Knowledge Pack evolution framework — Phase 0–3 curate/architect  |
 
 ### Environment Variables
@@ -115,6 +115,7 @@ hermes-ops uses a **closed-loop kanban system** with two phases per day:
 ### Phase 1 — Morning: Surface (kanban-morning-review)
 
 After each morning agent completes its run, it invokes `kanban-morning-review` to parse its carryover for open questions and research directions. The skill:
+
 1. Reads the agent's carryover
 2. Attempts to self-answer from wiki/synapse context
 3. Only surfaces genuinely unanswered items as Hermes kanban tasks
@@ -123,6 +124,7 @@ After each morning agent completes its run, it invokes `kanban-morning-review` t
 ### Phase 2 — Dispatch (kanban-dispatcher)
 
 The `kanban-dispatcher` cron runs every 2 hours. It:
+
 1. Queries kanban.db for unclaimed `ready` tasks (no `task_runs` entry)
 2. Routes by assignee prefix to the correct agent skill
 3. Marks task `in_progress` and dispatches via `delegate_task`
@@ -130,15 +132,15 @@ The `kanban-dispatcher` cron runs every 2 hours. It:
 
 ### Routing Table
 
-| Assignee prefix | Routes to skill |
-|-----------------|-----------------|
-| `ingest` / `ingest-agent` | `ingest-agent` |
-| `librarian` / `librarian-agent` | `librarian-agent` |
-| `librarians-assistant` | `librarians-assistant` |
-| `researcher` / `researcher-agent` | `researcher-agent` |
-| `news-agent` | `news-agent` |
-| `arxiv-agent` | `arxiv-agent` |
-| `insights-agent` | `insights-agent` |
+| Assignee prefix                   | Routes to skill        |
+| --------------------------------- | ---------------------- |
+| `ingest` / `ingest-agent`         | `ingest-agent`         |
+| `librarian` / `librarian-agent`   | `librarian-agent`      |
+| `librarians-assistant`            | `librarians-assistant` |
+| `researcher` / `researcher-agent` | `researcher-agent`     |
+| `news-agent`                      | `news-agent`           |
+| `arxiv-agent`                     | `arxiv-agent`          |
+| `insights-agent`                  | `insights-agent`       |
 
 ### Kanban Database
 
@@ -267,13 +269,13 @@ hermes delegate --profile <name> --goal "..."
 
 ### Persona Reference
 
-| Profile | Core Strength | Best For |
-|---------|---------------|----------|
-| `coder` | Surgical code changes | Fixing bugs, targeted edits, implementation |
-| `principal-researcher` | Formal rigor | Claims evaluation, complexity profiling, falsification design |
-| `pathfinder` | Novel connections | Exploring undefined problems, finding non-obvious paths |
-| `philosophic-investigator` | Deconstruction | Evaluating assumptions, identifying tensions, logical critique |
-| `peer-reviewer` | Manuscript evaluation | Evaluating claims against evidence, actionable recommendations |
+| Profile                    | Core Strength         | Best For                                                       |
+| -------------------------- | --------------------- | -------------------------------------------------------------- |
+| `coder`                    | Surgical code changes | Fixing bugs, targeted edits, implementation                    |
+| `principal-researcher`     | Formal rigor          | Claims evaluation, complexity profiling, falsification design  |
+| `pathfinder`               | Novel connections     | Exploring undefined problems, finding non-obvious paths        |
+| `philosophic-investigator` | Deconstruction        | Evaluating assumptions, identifying tensions, logical critique |
+| `peer-reviewer`            | Manuscript evaluation | Evaluating claims against evidence, actionable recommendations |
 
 ### Multi-Persona Orchestration
 
@@ -289,6 +291,7 @@ delegate_task(tasks=[
 ```
 
 Example: 6-persona synthesis on the oMCD meta-cognition framework completed in 237s, producing:
+
 - 4 new wiki pages + 3 cross-links
 - 2 technical reference documents
 - 3 concrete work items promoted to kanban
@@ -377,17 +380,20 @@ Beyond the wiki agents, hermes-ops implements a two-council autonomous reasoning
 **The Refuser** is the bridge between both councils — an engineer who learned to ask "who does this hurt?" before pressing deploy. Holds the deploy token. Veto rule: unnamed + plausible + non-reversible = VETO.
 
 Three-layer interaction model:
+
 1. **Continuous stand-up witness** — Refuser attends every technical stand-up, elevates harm signals to philosophical council via Weil-gate
 2. **Quarterly field visit** — philosophical council visits where the work happens, witnesses whether harm-cases are still the right ones
 3. **Release court** — joint session before significant deployments; Refuser adjudicates with deploy token authority
 
 See full documentation at:
+
 - `wiki/synthesis/two-council-architecture.md` — complete architecture
 - `wiki/concepts/refuser-pattern.md` — Refuser pattern reference
 - `wiki/synthesis/harm-cases.md` — all 7 harm cases with lessons
 - `wiki/synthesis/replicant-mapping.md` — persona ↔ SEG replicant mapping
 
 Runtime skills:
+
 - `~/.hermes/skills/autonomous-ai-agents/research-council/` — Research Council SKILL.md
 - `~/.hermes/skills/autonomous-ai-agents/technical-working-group/` — Technical Working Group SKILL.md
 - `~/.hermes/profiles/research-council/SOUL.md` — Heavy Steward persona
