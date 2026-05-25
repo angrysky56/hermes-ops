@@ -61,10 +61,13 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 | **pathfinder**           | `/pathfinder`             | On-demand       | Exploratory problem-solving — SOAR cognitive cycle, non-obvious connections, structured exploration toward novel solutions              |
 | **philosophic-investigator** | `/philosophic-investigator` | On-demand    | Philosophical analysis — conceptual framework deconstruction, logical rigor, methodological critique                                    |
 | **peer-reviewer**        | `/peer-reviewer`          | On-demand       | Careful manuscript evaluation — claim assessment, methodological rigor, actionable recommendations                                       |
+| **domain-build**         | `/domain-build`           | On-demand       | Chains Paper2Code-Enhanced → OrCAID commit0 → meta-harness into closed-loop domain building pipeline                                 |
+
+> The domain-build persona chains all three tools above into a single pipeline. See the Prerequisites table for repo links.
 
 ---
 
-## Prerequisites
+## Domain Building Pipeline
 
 | Dependency              | Install                                                                                                                                                              | Purpose                                                          |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
@@ -73,6 +76,9 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 | **Neo4j**               | [neo4j.com](https://neo4j.com/) + [APOC plugin](https://github.com/neo4j-contrib/apoc)                                                                               | Graph + vector storage                                           |
 | **Obsidian**            | [obsidian.md](https://obsidian.md/) + [obsidian-git](https://github.com/vinzent03/obsidian-git) + [clipping plugin](https://github.com/D你这么可爱/obsidian-clipper) | Human-readable wiki vault + version control + web clipping       |
 | **Python 3.10+**        | —                                                                                                                                                                    | Runtime for Synapse MCP                                          |
+| **OrCAID**              | [angrysky56/OrCAID](https://github.com/angrysky56/OrCAID)                                                                                                            | Multi-agent execution engine with self-healing delegation loop   |
+| **Paper2Code-Enhanced** | [wentingzhao/Paper2Code-Enhanced](https://github.com/wentingzhao/Paper2Code-Enhanced)                                                                               | Multi-agent paper-to-code pipeline (Tree of Thoughts, etc.)       |
+| **meta-harness**        | [angrysky56/meta-harness](https://github.com/angrysky56/meta-harness)                                                                                                | Knowledge Pack evolution framework — Phase 0–3 curate/architect  |
 
 ### Environment Variables
 
@@ -148,7 +154,8 @@ hermes-ops/
 │   ├── principal-researcher/   # Rigorous scientific evaluation
 │   ├── pathfinder/             # Exploratory problem-solving
 │   ├── philosophic-investigator/  # Philosophical analysis
-│   └── peer-reviewer/          # Manuscript evaluation
+│   ├── peer-reviewer/          # Manuscript evaluation
+│   └── domain-build/            # Paper2Code → OrCAID → meta-harness pipeline
 │
 ├── agent-sheets/              # Agent instruction sheets (what agents READ at runtime)
 │   ├── news.md
