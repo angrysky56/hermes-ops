@@ -73,16 +73,16 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 
 ## Domain Building Pipeline
 
-| Dependency              | Install                                                                                                                                                              | Purpose                                                          |
-| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| **hermes-agent**        | `pip install hermes-agent` or [source](https://github.com/NousResearch/hermes-agent)                                                                                 | CLI, cron scheduler, agent runtime                               |
-| **project-synapse-mcp** | [angrysky56/project-synapse-mcp](https://github.com/angrysky56/project-synapse-mcp)                                                                                  | MCP server — Synapse semantic pipeline, wiki tools, Neo4j bridge |
-| **Neo4j**               | [neo4j.com](https://neo4j.com/) + [APOC plugin](https://github.com/neo4j-contrib/apoc)                                                                               | Graph + vector storage                                           |
-| **Obsidian**            | [obsidian.md](https://obsidian.md/) + [obsidian-git](https://github.com/vinzent03/obsidian-git) + [clipping plugin](https://github.com/D你这么可爱/obsidian-clipper) | Human-readable wiki vault + version control + web clipping       |
-| **Python 3.10+**        | —                                                                                                                                                                    | Runtime for Synapse MCP                                          |
-| **OrCAID**              | [angrysky56/OrCAID](https://github.com/angrysky56/OrCAID)                                                                                                            | Multi-agent execution engine with self-healing delegation loop   |
-| **Paper2Code-Enhanced** | [angrysky56/Paper2Code-Enhanced](https://github.com/angrysky56/Paper2Code-Enhanced)                                                                                  | Multi-agent paper-to-code pipeline (Tree of Thoughts, etc.)      |
-| **meta-harness**        | [angrysky56/meta-harness](https://github.com/angrysky56/meta-harness)                                                                                                | Knowledge Pack evolution framework — Phase 0–3 curate/architect  |
+| Dependency              | Install                                                                                                                                          | Purpose                                                          |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| **hermes-agent**        | `pip install hermes-agent` or [source](https://github.com/NousResearch/hermes-agent)                                                             | CLI, cron scheduler, agent runtime                               |
+| **project-synapse-mcp** | [angrysky56/project-synapse-mcp](https://github.com/angrysky56/project-synapse-mcp)                                                              | MCP server — Synapse semantic pipeline, wiki tools, Neo4j bridge |
+| **Neo4j**               | [neo4j.com](https://neo4j.com/) + APOC                                                                                                           | Graph + vector storage                                           |
+| **Obsidian**            | [obsidian.md](https://obsidian.md/) + [obsidian-git](https://github.com/vinzent03/obsidian-git) + [clipping plugin](https://obsidian.md/clipper) | Human-readable wiki vault + version control + web clipping       |
+| **Python 3.10+**        | —                                                                                                                                                | Runtime for Synapse MCP                                          |
+| **OrCAID**              | [angrysky56/OrCAID](https://github.com/angrysky56/OrCAID)                                                                                        | Multi-agent execution engine with self-healing delegation loop   |
+| **Paper2Code-Enhanced** | [angrysky56/Paper2Code-Enhanced](https://github.com/angrysky56/Paper2Code-Enhanced)                                                              | Multi-agent paper-to-code pipeline (Tree of Thoughts, etc.)      |
+| **meta-harness**        | [angrysky56/meta-harness](https://github.com/angrysky56/meta-harness)                                                                            | Knowledge Pack evolution framework — Phase 0–3 curate/architect  |
 
 ### Environment Variables
 
