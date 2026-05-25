@@ -320,6 +320,35 @@ LLM-WIKI/
 | Reports     | `wiki/scratchpad/jobs/reports/{agent}/`             |
 | Carryover   | `wiki/scratchpad/jobs/reports/{agent}/carryover.md` |
 
+### Two-Council Architecture
+
+Beyond the wiki agents, hermes-ops implements a two-council autonomous reasoning system:
+
+**Research Council** — philosophical deliberation, slow and ethical. Holds the Weil-gate: every proposed system change must answer "who does this hurt?" before proceeding. Personas: Heavy Steward (meta-agent), Bayesian Sage, Weil, Lessing, Dickinson, Philosopher. Runs spiral architecture (never closed loop), uses empty-chair protocol when a perspective is genuinely missing.
+
+**Technical Working Group** — engineering rigor, fast and specific. Each persona carries a real harm case as experiential grounding (Therac-25, DynamoDB outage, Knight Capital $460M loss, etc.). Personas: Formalist, Architect, Algorist, Debugger, Steward, Shipwright, Refuser.
+
+**The Refuser** is the bridge between both councils — an engineer who learned to ask "who does this hurt?" before pressing deploy. Holds the deploy token. Veto rule: unnamed + plausible + non-reversible = VETO.
+
+Three-layer interaction model:
+1. **Continuous stand-up witness** — Refuser attends every technical stand-up, elevates harm signals to philosophical council via Weil-gate
+2. **Quarterly field visit** — philosophical council visits where the work happens, witnesses whether harm-cases are still the right ones
+3. **Release court** — joint session before significant deployments; Refuser adjudicates with deploy token authority
+
+See full documentation at:
+- `wiki/synthesis/two-council-architecture.md` — complete architecture
+- `wiki/concepts/refuser-pattern.md` — Refuser pattern reference
+- `wiki/synthesis/harm-cases.md` — all 7 harm cases with lessons
+- `wiki/synthesis/replicant-mapping.md` — persona ↔ SEG replicant mapping
+
+Runtime skills:
+- `~/.hermes/skills/autonomous-ai-agents/research-council/` — Research Council SKILL.md
+- `~/.hermes/skills/autonomous-ai-agents/technical-working-group/` — Technical Working Group SKILL.md
+- `~/.hermes/profiles/research-council/SOUL.md` — Heavy Steward persona
+- `~/.hermes/profiles/refuser/SOUL.md` — Refuser persona
+
+**Trigger phrases:** `"research council"` for the philosophical side, `"technical working group"` for the engineering side.
+
 ### MCP Tools vs. Filesystem Fallback
 
 All wiki agents should **verify MCP availability before use**:
