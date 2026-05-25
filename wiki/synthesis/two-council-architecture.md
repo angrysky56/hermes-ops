@@ -145,19 +145,28 @@ The research council's Weil-gate and the Refuser's veto both draw from these har
 
 ## Skills and Profiles
 
-| Artifact | Location |
-|----------|----------|
-| Research Council SKILL.md | `~/.hermes/skills/autonomous-ai-agents/research-council/` |
-| Research Council SOUL.md | `~/.hermes/profiles/research-council/SOUL.md` |
-| Technical Working Group SKILL.md | `~/.hermes/skills/autonomous-ai-agents/technical-working-group/` |
-| Refuser SOUL.md | `~/.hermes/profiles/refuser/SOUL.md` |
-| Replicant mapping | `research-council/references/replicant-mapping.md` |
-| Interaction model | `technical-working-group/references/interaction-model.md` |
-| Veto protocol | `technical-working-group/references/refuser-veto-protocol.md` |
-| Harm cases | `technical-working-group/references/harm-cases.md` |
-| Empty chair protocol | `research-council/references/empty-chair-protocol.md` |
-| Persona delegation templates | `research-council/references/persona-delegation.md` |
-| Spiral architecture | `research-council/references/spiral-architecture.md` |
+|| Artifact | hermes-ops Location | Runtime Location ||
+||----------|--------------------|--------------------||
+|| Research Council SKILL.md | `skills/research-council/SKILL.md` | `~/.hermes/skills/autonomous-ai-agents/research-council/` ||
+|| Research Council SOUL.md | — | `~/.hermes/profiles/research-council/SOUL.md` ||
+|| Technical Working Group SKILL.md | `skills/technical-working-group/SKILL.md` | `~/.hermes/skills/autonomous-ai-agents/technical-working-group/` ||
+|| Kanban Orchestrator SKILL.md | `skills/kanban-orchestrator/SKILL.md` | `~/.hermes/skills/autonomous-ai-agents/kanban-orchestrator/` ||
+|| Refuser SOUL.md | — | `~/.hermes/profiles/refuser/SOUL.md` ||
+|| Replicant mapping | `wiki/synthesis/replicant-mapping.md` | — ||
+|| Harm cases | `wiki/synthesis/harm-cases.md` | — ||
+|| Spiral architecture | `wiki/synthesis/spiral-architecture.md` | — ||
+|| Empty chair protocol | `wiki/synthesis/empty-chair-protocol.md` | — ||
+|| Refuser pattern | `wiki/synthesis/refuser-pattern.md` | — ||
+|| Two-council architecture | `wiki/synthesis/two-council-architecture.md` | — ||
+|| Skill index | `wiki-guides/index.md` | — ||
+
+## Trigger Phrases
+
+| Council | Trigger |
+|---------|---------|
+| Research Council | `"research council"`, `"council on <topic>"` |
+| Technical Working Group | `"technical working group"`, `"twg"`, `"engineering council"` |
+| Kanban Orchestrator | `"orchestrator"`, `"dispatch workers"`, `"kanban workflow creator"` |
 
 ---
 

@@ -51,11 +51,15 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 | ------------------------ | ------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | **news-agent**           | `/news-agent`             | Daily 08:00 AM  | Scans global news via Google RSS, ingests 3–5 significant stories to `wiki/sources/articles/`, writes `headlines-YYYY-MM-DD.md` reports |
 | **arxiv-agent**          | `/arxiv-agent`            | Daily 08:20 AM  | Discovers top ML/AI papers on arXiv, downloads PDFs, writes source summaries to `wiki/sources/papers/`                                  |
-| **researcher-agent**     | `/researcher-agent`       | On-demand       | Identifies knowledge gaps in the wiki using graph queries, fills stubs, creates concept pages                                           |
+| **researcher-agent**     | `/researcher-agent`       | Daily 08:10 AM  | Identifies knowledge gaps in the wiki using graph queries, fills stubs, creates concept pages                                           |
+| **ingest-agent**         | `/ingest-agent`           | Daily 08:30 AM  | Processes raw inbox files through the Synapse pipeline into structured wiki knowledge                                                   |
 | **librarian-agent**      | `/librarian-agent`        | Daily 08:50 AM  | Runs full vault audit (orphans, broken links, frontmatter debt, HITS scoring), delegates fixes to librarians-assistant                  |
 | **librarians-assistant** | `/librarians-assistant`   | After librarian | Iterative remediation: fixes broken wikilinks, resolves orphans, normalizes frontmatter and tags                                        |
-| **ingest-agent**         | `/ingest-agent`           | On-demand       | Processes raw inbox files through the Synapse pipeline into structured wiki knowledge                                                   |
 | **insights-agent**       | `/insights-agent`         | Daily 06:00 AM  | Runs the Zettelkasten engine, materializes high-confidence insights (≥0.7) as synthesis pages                                           |
+| **kanban-morning-review** | (after each agent)     | Post-run        | Self-answer open carryover items via wiki/synapse; surface only genuinely unanswerable items to Hermes kanban                          |
+
+> **After every cron completes its main task**, each agent runs the **kanban-morning-review** step: reads its carryover's Open items, attempts to self-answer from wiki/synapse context, and only surfaces genuinely unanswerable items to kanban. This keeps Ty from being spammed with questions the system can already resolve.
+
 | **coder**                | `/coder`                  | On-demand       | Surgical code execution — targeted changes, minimal disruption, goal-driven verification                                                |
 | **principal-researcher** | `/principal-researcher`   | On-demand       | Rigorous scientific evaluation — formal epistemology, complexity profiling, mathematical optimization, falsification protocols        |
 | **pathfinder**           | `/pathfinder`             | On-demand       | Exploratory problem-solving — SOAR cognitive cycle, non-obvious connections, structured exploration toward novel solutions              |

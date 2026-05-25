@@ -27,6 +27,19 @@ trigger: /news-agent
 7. Update carryover.md: add new articles to Article Index, update Established/Open sections, prune index to last 10 entries
 8. Report to `#news` Discord channel
 
+## STEP 8 — Kanban Review (Self-Answer Open Questions)
+
+After writing your carryover, load the `kanban-morning-review` skill:
+
+1. Read your carryover at `wiki/scratchpad/jobs/reports/news/carryover.md`
+2. For each item in the **Open** section, attempt to answer it from available context:
+   - Search wiki via `search_files` or `mcp_project_synapse_wiki_search` for existing content on the topic
+   - Check other carryovers for related filled concepts
+   - Use `mcp_project_synapse_synapse_recall` for relevant episodic facts
+3. If the answer exists → write it directly to the carryover under "Resolved this cycle" (do NOT create a kanban task)
+4. If genuinely unanswerable → use `hermes kanban add` to create the task (the skill handles this)
+5. Patch carryover to remove any items that are now resolved
+
 ## Primary Ingestion Pattern
 
 **RSS via terminal (curl) + manual file write is the reliable primary workflow.** MCP tools (wiki_fetch_url, wiki_ingest_raw) have inconsistent module paths and unreliable fetch rates for mainstream news — do not treat them as primary.

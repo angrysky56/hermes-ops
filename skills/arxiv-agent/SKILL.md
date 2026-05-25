@@ -18,6 +18,19 @@ trigger: /arxiv-agent
 4. Execute your task per the agent sheet directives
 5. Report to `#research` Discord channel
 
+## STEP 6 — Kanban Review (Self-Answer Open Questions)
+
+After writing your carryover, load the `kanban-morning-review` skill:
+
+1. Read your carryover at `wiki/scratchpad/jobs/reports/arxiv/carryover.md`
+2. For each item in the **Open** section, attempt to answer it from available context:
+   - Search wiki via `search_files` or `mcp_project_synapse_wiki_search` for existing content on the topic
+   - Check other carryovers for related filled concepts
+   - Use `mcp_project_synapse_synapse_recall` for relevant episodic facts
+3. If the answer exists → write it directly to the carryover under "Resolved this cycle" (do NOT create a kanban task)
+4. If genuinely unanswerable → use `hermes kanban add` to create the task (the skill handles this)
+5. Patch carryover to remove any items that are now resolved
+
 ## Your Tools
 
 - `mcp_arxiv_mcp_server_search_papers` — search arXiv by keyword/author/category (MCP, try first; fallback to curl on 429 or timeout)

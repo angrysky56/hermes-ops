@@ -62,6 +62,19 @@ Do NOT let raw/ accumulate files. This is the #1 pipeline health metric.
 - If nothing to ingest: `[SILENT]`
 - Write report to: `wiki/scratchpad/jobs/reports/ingest/ingest-{date}.md`
 
+## STEP 8 — Kanban Review (Self-Answer Open Questions)
+
+After writing your carryover, load the `kanban-morning-review` skill:
+
+1. Read your carryover at `wiki/scratchpad/jobs/reports/ingest/carryover.md`
+2. For each item in the **Open** section, attempt to answer it from available context:
+   - Search wiki via `search_files` or `mcp_project_synapse_wiki_search` for existing content on the topic
+   - Check other carryovers for related filled concepts
+   - Use `mcp_project_synapse_synapse_recall` for relevant episodic facts
+3. If the answer exists → write it directly to the carryover under "Resolved this cycle" (do NOT create a kanban task)
+4. If genuinely unanswerable → use `hermes kanban add` to create the task (the skill handles this)
+5. Patch carryover to remove any items that are now resolved
+
 ## wiki_ingest_raw Behavior
 
 - On success: auto-archives the file to `Clippings/articles/YYYY/<filename>.md`

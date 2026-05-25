@@ -98,6 +98,19 @@ Carryover:      wiki/scratchpad/jobs/reports/insights/carryover.md
 - 1+ pages created: brief summary → deliver to origin
 - CLI failure: report what failed and carry open items to next cycle
 
+## STEP 7 — Kanban Review (Self-Answer Open Questions)
+
+After writing your carryover, load the `kanban-morning-review` skill:
+
+1. Read your carryover at `wiki/scratchpad/jobs/reports/insights/carryover.md`
+2. For each item in the **Open** section, attempt to answer it from available context:
+   - Search wiki via `search_files` or `mcp_project_synapse_wiki_search` for existing content on the topic
+   - Check other carryovers for related filled concepts
+   - Use `mcp_project_synapse_synapse_recall` for relevant episodic facts
+3. If the answer exists → write it directly to the carryover under "Resolved this cycle" (do NOT create a kanban task)
+4. If genuinely unanswerable → use `hermes kanban add` to create the task (the skill handles this)
+5. Patch carryover to remove any items that are now resolved
+
 ## Confidence Threshold
 
 Only create pages for insights with `confidence >= 0.7`. Lower-confidence insights should be noted in carryover but not integrated as pages.

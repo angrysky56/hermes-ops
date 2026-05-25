@@ -1,49 +1,70 @@
 ---
-summary: Jobs system index
-tags: [jobs, index]
-updated: 2026-05-18T07:06:27Z
-created: 2026-05-18T07:06:27Z
----
-
----
+summary: hermes-ops skill guides and agent sheet index
+tags: [index, skills, agent-sheets, deployment]
+updated: 2026-05-25
 created: 2026-05-18
-type: jobs
 ---
 
-# Jobs System
+# hermes-ops — Skill Guides & Agent Sheets
 
-Central task board where Ty assigns work and agents report back.
+Documentation for deploying personas, agent sheets, and skills in hermes-ops.
 
-## Structure
+## Personas & Councils
+
+| Persona | Skill Guide | Deployment |
+|---------|-------------|------------|
+| **Research Council** | [[skills/research-council/SKILL.md]] | SEG-powered philosophical deliberation |
+| **Technical Working Group** | [[skills/technical-working-group/SKILL.md]] | Engineering safety council with Refuser veto |
+| **Kanban Orchestrator** | [[skills/kanban-orchestrator/SKILL.md]] | Workflow creation and worker dispatch |
+
+## Core Agent Sheets
+
+| Agent | Sheet | Job ID | Schedule |
+|-------|-------|--------|----------|
+| Librarian | [[agent-sheets/librarian.md]] | — | — |
+| Research | [[agent-sheets/researcher.md]] | — | — |
+| Coder | [[agent-sheets/coder.md]] | — | — |
+| News | [[agent-sheets/news.md]] | `eaaa6bdc8503` | Daily 08:00 |
+| OrCAID | [[agent-sheets/orcaid.md]] | `orcaid-main-001` | Daily 09:00 |
+| ArXiv | [[agent-sheets/arxiv.md]] | — | — |
+| Pathfinder | [[agent-sheets/pathfinder.md]] | — | — |
+| Principal Researcher | [[agent-sheets/principal-researcher.md]] | — | — |
+| Philosophic Investigator | [[agent-sheets/philosophic-investigator.md]] | — | — |
+
+## Skills Index
+
+| Skill | Path | Purpose |
+|-------|------|---------|
+| `research-council` | `skills/research-council/` | SEG council deployment guide |
+| `technical-working-group` | `skills/technical-working-group/` | TWG + Refuser deployment guide |
+| `kanban-orchestrator` | `skills/kanban-orchestrator/` | Orchestrator dispatch guide |
+| `coder` | `skills/coder/` | Surgical code execution |
+| `orcaid` | `agent-sheets/orcaid.md` | OrCAID multi-agent delegation |
+| `kanban` | `~/.hermes/skills/devops/kanban/SKILL.md` | Kanban workflow patterns (runtime) |
+
+## Wiki Synthesis
+
+Architecture docs written during this session:
+
+- [[wiki/synthesis/two-council-architecture]] — Research Council + TWG stack
+- [[wiki/synthesis/harm-cases]] — Documented harm patterns
+- [[wiki/synthesis/replicant-mapping]] — SEG replicant → persona mapping
+- [[wiki/synthesis/spiral-architecture]] — Spiral deliberation model
+- [[wiki/synthesis/empty-chair-protocol]] — Missing voice protocol
+- [[wiki/synthesis/refuser-pattern]] — Veto authority and Refuser
+
+## Architecture
 
 ```
-scratchpad/jobs/
-├── sheet.md          ← central task board (THIS FILE)
-├── reports/          ← agent report submissions
-│   ├── librarian/
-│   ├── researcher/
-│   ├── orcaid/
-│   ├── arxiv/
-│   ├── news/
-│   └── ingest/
-└── archives/         ← old completed tasks
+User
+  ↓
+kanban-orchestrator  (routing layer)
+  ↓
+research-council + technical-working-group  (tier-2 councils)
+  ↓
+workers — codex, orcaid, subagents  (execution layer)
+  ↓
+delegation-verification + kanban close  (verification layer)
 ```
 
-## How It Works
-
-1. **Ty** edits `sheet.md` to add tasks, set focus areas, flag priorities
-2. **Agent** reads `sheet.md` at start of every run for instructions
-3. **Agent** posts reports to `jobs/reports/{agent}/` with date-stamped filenames
-4. **Agent** updates the Status column in `sheet.md` after each run
-5. **Ty** reviews reports, delegates new work, archives done items
-
-## Report Naming
-
-```
-{agent}-{YYYY-MM-DD}-{topic}.md
-```
-
-Examples:
-- `librarian-2026-05-18-quality-audit.md`
-- `arxiv-2026-05-18-top3-papers.md`
-- `news-2026-05-18-global-headlines.md`
+Trigger phrases: `"research council"`, `"technical working group"`, `"orchestrator"`

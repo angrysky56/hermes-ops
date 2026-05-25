@@ -201,11 +201,24 @@ After the subagent finishes, write a brief delivery message that:
 - Lists concrete actions: "Fixed 47 broken links, resolved 23 orphans, normalized tags on 12 pages"
 - Flags anything that wasn't fixable and why
 - Updates carryover.md with open items for next cycle
+## Delivery Rule
 
-**Delivery rule:**
 - All checks pass → `[SILENT]`
 - Fixes made → brief summary of what was fixed, delivered to origin
 - Do NOT write a standalone report file — output goes to cron delivery
+
+## STEP 4 — Kanban Review (Self-Answer Open Questions)
+
+After writing your carryover, load the `kanban-morning-review` skill:
+
+1. Read your carryover at `wiki/scratchpad/jobs/reports/librarian/carryover.md`
+2. For each item in the **Open** section, attempt to answer it from available context:
+   - Search wiki via `search_files` or `mcp_project_synapse_wiki_search` for existing content on the topic
+   - Check other carryovers for related filled concepts
+   - Use `mcp_project_synapse_synapse_recall` for relevant episodic facts
+3. If the answer exists → write it directly to the carryover under "Resolved this cycle" (do NOT create a kanban task)
+4. If genuinely unanswerable → use `hermes kanban add` to create the task (the skill handles this)
+5. Patch carryover to remove any items that are now resolved
 
 **Carryover.md structure** — always record:
 ```
