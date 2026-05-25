@@ -47,15 +47,20 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 
 ### Agent Roles
 
-| Agent                    | Trigger                 | Schedule        | What it does                                                                                                                            |
-| ------------------------ | ----------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| **news-agent**           | `/news-agent`           | Daily 08:00 AM  | Scans global news via Google RSS, ingests 3–5 significant stories to `wiki/sources/articles/`, writes `headlines-YYYY-MM-DD.md` reports |
-| **arxiv-agent**          | `/arxiv-agent`          | Daily 08:20 AM  | Discovers top ML/AI papers on arXiv, downloads PDFs, writes source summaries to `wiki/sources/papers/`                                  |
-| **researcher-agent**     | `/researcher-agent`     | On-demand       | Identifies knowledge gaps in the wiki using graph queries, fills stubs, creates concept pages                                           |
-| **librarian-agent**      | `/librarian-agent`      | Daily 08:50 AM  | Runs full vault audit (orphans, broken links, frontmatter debt, HITS scoring), delegates fixes to librarians-assistant                  |
-| **librarians-assistant** | `/librarians-assistant` | After librarian | Iterative remediation: fixes broken wikilinks, resolves orphans, normalizes frontmatter and tags                                        |
-| **ingest-agent**         | `/ingest-agent`         | On-demand       | Processes raw inbox files through the Synapse pipeline into structured wiki knowledge                                                   |
-| **insights-agent**       | `/insights-agent`       | Daily 06:00 AM  | Runs the Zettelkasten engine, materializes high-confidence insights (≥0.7) as synthesis pages                                           |
+| Agent                    | Trigger                   | Schedule        | What it does                                                                                                                            |
+| ------------------------ | ------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **news-agent**           | `/news-agent`             | Daily 08:00 AM  | Scans global news via Google RSS, ingests 3–5 significant stories to `wiki/sources/articles/`, writes `headlines-YYYY-MM-DD.md` reports |
+| **arxiv-agent**          | `/arxiv-agent`            | Daily 08:20 AM  | Discovers top ML/AI papers on arXiv, downloads PDFs, writes source summaries to `wiki/sources/papers/`                                  |
+| **researcher-agent**     | `/researcher-agent`       | On-demand       | Identifies knowledge gaps in the wiki using graph queries, fills stubs, creates concept pages                                           |
+| **librarian-agent**      | `/librarian-agent`        | Daily 08:50 AM  | Runs full vault audit (orphans, broken links, frontmatter debt, HITS scoring), delegates fixes to librarians-assistant                  |
+| **librarians-assistant** | `/librarians-assistant`   | After librarian | Iterative remediation: fixes broken wikilinks, resolves orphans, normalizes frontmatter and tags                                        |
+| **ingest-agent**         | `/ingest-agent`           | On-demand       | Processes raw inbox files through the Synapse pipeline into structured wiki knowledge                                                   |
+| **insights-agent**       | `/insights-agent`         | Daily 06:00 AM  | Runs the Zettelkasten engine, materializes high-confidence insights (≥0.7) as synthesis pages                                           |
+| **coder**                | `/coder`                  | On-demand       | Surgical code execution — targeted changes, minimal disruption, goal-driven verification                                                |
+| **principal-researcher** | `/principal-researcher`   | On-demand       | Rigorous scientific evaluation — formal epistemology, complexity profiling, mathematical optimization, falsification protocols        |
+| **pathfinder**           | `/pathfinder`             | On-demand       | Exploratory problem-solving — SOAR cognitive cycle, non-obvious connections, structured exploration toward novel solutions              |
+| **philosophic-investigator** | `/philosophic-investigator` | On-demand    | Philosophical analysis — conceptual framework deconstruction, logical rigor, methodological critique                                    |
+| **peer-reviewer**        | `/peer-reviewer`          | On-demand       | Careful manuscript evaluation — claim assessment, methodological rigor, actionable recommendations                                       |
 
 ---
 
@@ -138,7 +143,12 @@ hermes-ops/
 │   ├── librarian-agent/
 │   ├── librarians-assistant/
 │   ├── ingest-agent/
-│   └── insights-agent/
+│   ├── insights-agent/
+│   ├── coder/                  # Surgical code execution
+│   ├── principal-researcher/   # Rigorous scientific evaluation
+│   ├── pathfinder/             # Exploratory problem-solving
+│   ├── philosophic-investigator/  # Philosophical analysis
+│   └── peer-reviewer/          # Manuscript evaluation
 │
 ├── agent-sheets/              # Agent instruction sheets (what agents READ at runtime)
 │   ├── news.md
@@ -147,7 +157,12 @@ hermes-ops/
 │   ├── librarian.md
 │   ├── librarians-assistant.md
 │   ├── ingest.md
-│   └── insights.md
+│   ├── insights.md
+│   ├── coder.md
+│   ├── principal-researcher.md
+│   ├── pathfinder.md
+│   ├── philosophic-investigator.md
+│   └── peer-reviewer.md
 │
 ├── wiki-guides/               # Operating guides for the wiki layer
 │   ├── synapse-llm-wiki-operating-guide.md  # Schema conventions, workflows, agent architecture
@@ -163,6 +178,69 @@ hermes-ops/
     └── workflows/
         └── demo.yml           # CI: lint docs, check links
 ```
+
+---
+
+## Profile-Based Personas (On-Demand)
+
+The 5 persona agents (`coder`, `principal-researcher`, `pathfinder`, `philosophic-investigator`, `peer-reviewer`) run as **named Hermes profiles** rather than cron jobs. They are orchestrated via `delegate_task` or invoked directly.
+
+### Deployment
+
+```bash
+# Create the profile (one-time)
+hermes profile create <name>
+
+# Copy config from default (one-time — approve prompts)
+cp ~/.hermes/config.yaml ~/.hermes/profiles/<name>/config.yaml
+cp ~/.hermes/.env ~/.hermes/profiles/<name>/.env
+cp ~/.hermes/auth.json ~/.hermes/profiles/<name>/auth.json
+
+# Copy the skill to the profile's skills directory
+cp -r skills/<name>/ ~/.hermes/profiles/<name>/skills/
+```
+
+### Invocation
+
+```bash
+# Direct profile chat
+hermes profile chat --profile <name>
+
+# As a sub-agent via delegation
+hermes delegate --profile <name> --goal "..."
+# or in a skill prompt:
+/<name> [task description]
+```
+
+### Persona Reference
+
+| Profile | Core Strength | Best For |
+|---------|---------------|----------|
+| `coder` | Surgical code changes | Fixing bugs, targeted edits, implementation |
+| `principal-researcher` | Formal rigor | Claims evaluation, complexity profiling, falsification design |
+| `pathfinder` | Novel connections | Exploring undefined problems, finding non-obvious paths |
+| `philosophic-investigator` | Deconstruction | Evaluating assumptions, identifying tensions, logical critique |
+| `peer-reviewer` | Manuscript evaluation | Evaluating claims against evidence, actionable recommendations |
+
+### Multi-Persona Orchestration
+
+Run 2–6 personas in parallel via `delegate_task` for synthesis tasks:
+
+```python
+delegate_task(tasks=[
+  {"goal": "...", "context": "You are the coder agent", "role": "leaf"},
+  {"goal": "...", "context": "You are the principal-researcher agent", "role": "leaf"},
+  {"goal": "...", "context": "You are the pathfinder agent", "role": "leaf"},
+  {"goal": "...", "context": "You are the philosophic-investigator agent", "role": "leaf"},
+])
+```
+
+Example: 6-persona synthesis on the oMCD meta-cognition framework completed in 237s, producing:
+- 4 new wiki pages + 3 cross-links
+- 2 technical reference documents
+- 3 concrete work items promoted to kanban
+
+See: [Demo: Alpha-Zeta Personas on oMCD Meta-Cognition](wiki-guides/AGENTS.md) for the full orchestration pattern.
 
 ---
 
