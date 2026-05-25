@@ -55,6 +55,7 @@ This repo contains **only the operational layer**: agent skills, agent sheets, w
 | **ingest-agent**          | `/ingest-agent`         | Daily 08:30 AM  | Processes raw inbox files through the Synapse pipeline into structured wiki knowledge                                                   |
 | **librarian-agent**       | `/librarian-agent`      | Daily 08:50 AM  | Runs full vault audit (orphans, broken links, frontmatter debt, HITS scoring), delegates fixes to librarians-assistant                  |
 | **librarians-assistant**  | `/librarians-assistant` | After librarian | Iterative remediation: fixes broken wikilinks, resolves orphans, normalizes frontmatter and tags                                        |
+| **web-researcher**      | `/web-researcher`       | On-demand (kanban) | ACRIS-ACP external web research — answers open questions from morning agents via multi-source search; hands off to researcher-agent for synthesis |
 | **insights-agent**        | `/insights-agent`       | Daily 06:00 AM  | Runs the Zettelkasten engine, materializes high-confidence insights (≥0.7) as synthesis pages                                           |
 | **kanban-morning-review** | (after each agent)      | Post-run        | Self-answer open carryover items via wiki/synapse; surface only genuinely unanswerable items to Hermes kanban                           |
 
@@ -141,6 +142,7 @@ The `kanban-dispatcher` cron runs every 2 hours. It:
 | `news-agent`                      | `news-agent`           |
 | `arxiv-agent`                     | `arxiv-agent`          |
 | `insights-agent`                  | `insights-agent`       |
+| `web-researcher`                  | `web-researcher-agent` |
 
 ### Kanban Database
 

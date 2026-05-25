@@ -63,7 +63,7 @@ Aim for 3-5 stories per cycle.
 Use the `project-synapse` skill with the LLM-WIKI operating guide. 
 
 For each significant story:
-1. Write summary to `wiki/sources/articles/[slug].md`
+1. Write summary to `wiki/sources/news/YYYY/[slug].md` (e.g. `wiki/sources/news/2026/`)
 2. If it relates to existing projects/concepts: update those pages with cross-links
 3. Tag appropriately
 

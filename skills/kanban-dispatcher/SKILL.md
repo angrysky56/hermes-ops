@@ -12,6 +12,7 @@ routing:
   news-agent: news-agent
   arxiv-agent: arxiv-agent
   insights-agent: insights-agent
+  web-researcher: web-researcher-agent
 ---
 
 # Kanban Dispatcher

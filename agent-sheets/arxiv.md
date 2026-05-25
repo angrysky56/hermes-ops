@@ -155,13 +155,14 @@ Write final report to `wiki/scratchpad/jobs/reports/arxiv/arxiv-YYYY-MM-DD-top-p
 
 Invoke the `kanban-morning-review` skill. Load it with `skill_view("kanban-morning-review")`, then run it against your carryover to surface open questions to Hermes kanban.
 
-The kanban-morning-review skill handles:
-- Parsing carryover for open questions / research directions
-- Attempting self-answer from wiki/synapse context before surfacing
-- Creating hermes kanban tasks for genuinely unanswered items
-- Updating carryover with kanban status
+**Assignee routing** — when creating tasks from open questions, use the correct assignee:
+- **Needs external web search** (papers to find, specific factual lookups, implementation details, industry context) → `assignee=web-researcher`
+- **Needs wiki synthesis or concept development** → `assignee=researcher`
+- **Needs data ingestion or cleanup** → `assignee=ingest` or `assignee=librarian`
 
-**Important**: After this step, your carryover should have a "Kanban Status" section noting what was surfaced. Do NOT skip this step — it closes the loop between morning crons and the dispatcher.
+Mark tasks with the right assignee in the SQL insert (see kanban-morning-review skill for SQL pattern). The dispatcher routes on assignee prefix.
+
+**Important**: After this step, your carryover should have a "Kanban Status" section noting what was surfaced and which assignee each item targets.
 
 ---
 

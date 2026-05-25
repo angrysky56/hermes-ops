@@ -46,6 +46,9 @@ Workdir for all: `$WIKI_PATH` (env var, default `$HOME/Documents/LLM-WIKI`)
 | librarian | `wiki/scratchpad/jobs/reports/librarian/carryover.md` |
 | librarians-assistant | `wiki/scratchpad/jobs/reports/librarians-assistant/carryover.md` |
 | researcher | `wiki/scratchpad/jobs/reports/researcher/carryover.md` |
+| web-researcher | `wiki/scratchpad/jobs/reports/web-researcher/carryover.md` |
+
+**Note**: `web-researcher` is not a time-based cron. Its carryover is written after each task completion (STEP 6 of the web-researcher workflow). The trailing morning-review cron only processes time-based morning agents.
 
 **Important**: Agent dir names use hyphens (`librarians-assistant`), not underscores. Carryover filename is `carryover.md`.
 
