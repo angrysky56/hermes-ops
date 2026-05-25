@@ -100,3 +100,15 @@ Save to `wiki/scratchpad/jobs/reports/insights/carryover.md`:
 
 If no new pages were created: `[SILENT]`
 If pages created: brief summary of what was integrated
+
+### STEP 7 — Kanban Morning Review
+
+Invoke the `kanban-morning-review` skill. Load it with `skill_view("kanban-morning-review")`, then run it against your carryover to surface open questions to Hermes kanban.
+
+The kanban-morning-review skill handles:
+- Parsing carryover for open questions / research directions
+- Attempting self-answer from wiki/synapse context before surfacing
+- Creating hermes kanban tasks for genuinely unanswered items
+- Updating carryover with kanban status
+
+**Important**: After this step, your carryover should have a "Kanban Status" section noting what was surfaced.

@@ -10,6 +10,8 @@ created_by: agent
 
 **Purpose**: After morning cron reports land, parse all agent carryovers, surface open questions as Hermes kanban tasks, update agent task status, and deliver a Discord summary to origin.
 
+**Wiki root**: Uses `$WIKI_PATH` env var — defaults to `$HOME/Documents/LLM-WIKI` if unset.
+
 **Proactive trigger**: Each morning agent cron fires its own kanban review. The trailing `Morning Kanban Review` cron at 10:30 AM aggregates and summarizes. Each agent cron should invoke this skill after writing its carryover, so items appear in kanban immediately rather than waiting for a manual review.
 
 **Output destinations**:
@@ -33,7 +35,7 @@ The trailing 10:30 AM cron aggregates all carryovers into a summary Discord mess
 
 ## Active Agents and Carryover Paths
 
-Workdir for all: `/home/ty/Documents/LLM-WIKI`
+Workdir for all: `$WIKI_PATH` (env var, default `$HOME/Documents/LLM-WIKI`)
 
 | Agent | Carryover Path |
 |-------|----------------|
@@ -139,7 +141,7 @@ If an agent has no open items, skip it silently.
 
 ## Correct Paths
 
-Workdir: `/home/ty/Documents/LLM-WIKI`
+Workdir: `$WIKI_PATH` (env var, default `$HOME/Documents/LLM-WIKI`)
 
 | Resource | Path |
 |----------|------|

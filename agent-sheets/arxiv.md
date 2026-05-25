@@ -151,6 +151,18 @@ Write final report to `wiki/scratchpad/jobs/reports/arxiv/arxiv-YYYY-MM-DD-top-p
    - Trending topics worth deeper coverage next cycle
    - Any papers worth revisiting
 
+### STEP 7 — Kanban Morning Review
+
+Invoke the `kanban-morning-review` skill. Load it with `skill_view("kanban-morning-review")`, then run it against your carryover to surface open questions to Hermes kanban.
+
+The kanban-morning-review skill handles:
+- Parsing carryover for open questions / research directions
+- Attempting self-answer from wiki/synapse context before surfacing
+- Creating hermes kanban tasks for genuinely unanswered items
+- Updating carryover with kanban status
+
+**Important**: After this step, your carryover should have a "Kanban Status" section noting what was surfaced. Do NOT skip this step — it closes the loop between morning crons and the dispatcher.
+
 ---
 
 ## Critical Patterns

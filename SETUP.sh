@@ -41,8 +41,9 @@ check_hermes() {
 
 # ── Copy skills ───────────────────────────────────────────────────────────────
 install_skills() {
-  local src="$HOME/.hermes/skills/agent-sheets"
-  local dest="$HOME/.hermes/skills/agent-sheets"
+  # hermes-ops skills dir → ~/.hermes/skills/ (sibling to built-in skills)
+  local src="$(cd "$(dirname "$0")/../skills" && pwd)"
+  local dest="$HOME/.hermes/skills"
 
   if [[ ! -d "$src" ]]; then
     warn "Source skills directory not found: $src"
@@ -50,33 +51,29 @@ install_skills() {
     return 1
   fi
 
-  info "Copying skills to ~/.hermes/skills/agent-sheets/ ..."
+  info "Copying skills from $src to ~/.hermes/skills/ ..."
 
-  # Create destination dir if needed
   mkdir -p "$dest"
 
-  # Copy each agent skill directory (but NOT the target dir itself to avoid recursion)
   for agent_dir in "$src"/*/; do
     [[ -d "$agent_dir" ]] || continue
     agent_name=$(basename "$agent_dir")
-
-    # Skip if this IS the target directory (shouldn't happen but be safe)
-    [[ "$agent_dir" == "$dest/"* ]] && continue
-
-    echo "  Copying skill: $agentName"
+    echo "  Copying skill: $agent_name"
     cp -r "$agent_dir" "$dest/"
-    success "  $agentName"
+    success "  $agent_name"
   done
 
   echo ""
-  success "Skills installed to ~/.hermes/skills/agent-sheets/"
+  success "Skills installed to ~/.hermes/skills/"
   echo ""
 }
 
 # ── Copy agent sheets ─────────────────────────────────────────────────────────
 install_agent_sheets() {
-  local src="$HOME/Documents/LLM-WIKI/wiki/scratchpad/agent-sheets"
-  local dest="$HOME/Documents/LLM-WIKI/wiki/scratchpad/agent-sheets"
+  # hermes-ops/agent-sheets → LLM-WIKI/wiki/scratchpad/agent-sheets/
+  local src="$(cd "$(dirname "$0")/../agent-sheets" && pwd)"
+  local wiki_path="${WIKI_PATH:-$HOME/Documents/LLM-WIKI}"
+  local dest="$wiki_path/wiki/scratchpad/agent-sheets"
 
   if [[ ! -d "$src" ]]; then
     warn "Source agent-sheets directory not found: $src"
@@ -84,19 +81,19 @@ install_agent_sheets() {
     return 1
   fi
 
-  info "Copying agent-sheets to ~/Documents/LLM-WIKI/wiki/scratchpad/agent-sheets/ ..."
+  info "Copying agent-sheets from $src to $dest ..."
 
   mkdir -p "$dest"
 
   for sheet in "$src"/*.md; do
     [[ -f "$sheet" ]] || continue
-    sheetName=$(basename "$sheet")
+    sheet_name=$(basename "$sheet")
     cp "$sheet" "$dest/"
-    success "  $sheetName"
+    success "  $sheet_name"
   done
 
   echo ""
-  success "Agent sheets installed to ~/Documents/LLM-WIKI/wiki/scratchpad/agent-sheets/"
+  success "Agent sheets installed to $dest"
   echo ""
 }
 
@@ -219,13 +216,25 @@ print_next_steps() {
   echo "   git clone https://github.com/your-org/project-synapse-mcp.git"
   echo "   cd project-synapse-mcp && pip install -e ."
   echo ""
-  echo "4. ${BOLD}Schedule a cron job:${RESET}"
+  echo "4. ${BOLD}Schedule the kanban dispatcher cron:${RESET}"
+  echo "   hermes cron create \\"
+  echo "     --name kanban-dispatcher \\"
+  echo "     --prompt 'Run the kanban-dispatcher skill. Load it with skill_view(\"kanban-dispatcher\"), then execute the dispatch loop: query kanban for ready tasks with no task_runs, route to agent skills, dispatch via delegate_task. Report any tasks that need attention.' \\"
+  echo "     --schedule '0 */2 * * *' \\"
+  echo "     --model MiniMax-M2.7 \\"
+  echo "     --skills kanban-dispatcher \\"
+  echo "     --toolset '[\"terminal\",\"file\",\"skills\",\"delegation\"]' \\"
+  echo "     --deliver origin"
+  echo ""
+  echo "5. ${BOLD}Schedule individual agent crons (or use the wiki/scratchpad/jobs/sheet.md pattern):${RESET}"
   echo "   hermes cron create \\"
   echo "     --name world-news-daily \\"
-  echo "     --trigger /news-agent \\"
+  echo "     --prompt 'Run the news-agent skill...' \\"
   echo "     --schedule '0 8 * * *' \\"
-  echo "     --model minimax/MiniMax-M2.7 \\"
-  echo "     --toolset '[\"terminal\",\"file\",\"web\",\"skills\",\"search\",\"patch\"]'"
+  echo "     --model MiniMax-M2-7 \\"
+  echo "     --skills news-agent \\"
+  echo "     --toolset '[\"terminal\",\"file\",\"web\",\"skills\",\"search\",\"patch\"]' \\"
+  echo "     --deliver origin"
   echo ""
   echo -e "${BOLD}${BLUE}═══════════════════════════════════════════════════════════════${RESET}"
   echo ""

@@ -108,6 +108,48 @@ DISCORD_HOME_CHANNEL_ID=<your-channel-id>
 
 ---
 
+## Kanban Architecture
+
+hermes-ops uses a **closed-loop kanban system** with two phases per day:
+
+### Phase 1 — Morning: Surface (kanban-morning-review)
+
+After each morning agent completes its run, it invokes `kanban-morning-review` to parse its carryover for open questions and research directions. The skill:
+1. Reads the agent's carryover
+2. Attempts to self-answer from wiki/synapse context
+3. Only surfaces genuinely unanswered items as Hermes kanban tasks
+4. Updates the carryover with kanban status
+
+### Phase 2 — Dispatch (kanban-dispatcher)
+
+The `kanban-dispatcher` cron runs every 2 hours. It:
+1. Queries kanban.db for unclaimed `ready` tasks (no `task_runs` entry)
+2. Routes by assignee prefix to the correct agent skill
+3. Marks task `in_progress` and dispatches via `delegate_task`
+4. On worker failure, reverts to `ready` for retry
+
+### Routing Table
+
+| Assignee prefix | Routes to skill |
+|-----------------|-----------------|
+| `ingest` / `ingest-agent` | `ingest-agent` |
+| `librarian` / `librarian-agent` | `librarian-agent` |
+| `librarians-assistant` | `librarians-assistant` |
+| `researcher` / `researcher-agent` | `researcher-agent` |
+| `news-agent` | `news-agent` |
+| `arxiv-agent` | `arxiv-agent` |
+| `insights-agent` | `insights-agent` |
+
+### Kanban Database
+
+```
+~/.hermes/kanban.db
+```
+
+Use `hermes kanban` CLI or direct sqlite3 for management. Key states: `ready` → `in_progress` → `done` / `blocked`.
+
+---
+
 ## Quick Start
 
 Fork and clone this repo.
